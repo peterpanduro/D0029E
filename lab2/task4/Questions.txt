@@ -1,0 +1,8 @@
+ECB: Padding (16 bytes long)
+CBC: Padding (16 bytes long)
+CFB: No Padding (5 bytes long)
+OFB: No padding (5 bytes long)
+
+Padding is 0x0B
+
+Only a segment of 16 bytes was affected, and some artifacts a few bytes after.
