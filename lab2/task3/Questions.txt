@@ -1,3 +1,0 @@
-The ECB encryption still shows the outlines/edges of the motive. The CBC however scrambles the content evenly.
-
-When using a photograph, edges are everywhere scrambling the picture anyways.

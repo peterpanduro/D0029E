@@ -1,1 +1,0 @@
-Task 6.2: In CFB a collition of ciphertext block leads to a potentially exploitable relation for the plaintext blocks that follow.
