@@ -99,7 +99,7 @@ Creates an executable file called a.out that, when it runs, outputs '41' 200 tim
 
 #### 3.2 Cut program into parts.
 
-Using a hex editor, we can find the huge array of 'A's. The bits are stored right before "GCC". In the middle of that array we can find a 128-byte region to essentially cut out, creating 3 parts. In this case 32 butes into the array.
+Using a hex editor, we can find the huge array of 'A's. The bits are stored right before "GCC". In the middle of that array we can find a 128-byte region to essentially cut out, creating 3 parts. In this case 32 bytes into the array.
 
 We cut the 128 byte part since we know that is how much out md5collgen appends, but in theory any multiple length of 64 should work.
 
@@ -216,11 +216,11 @@ Running som benign code
 
 Since both 128-byte arrays is stored next to each other in the source code it creates a 256 byte block of 'A's beginning at offset 0x1040. This can be found using a hex editor like Bless for instance.
 
-This is an even multiple of 64, so we can use this to locate the byte where we should cut the prefix (to byte 4160) and suffix (from byte 4289 (4160+128+1)).
+This is an even multiple of 64, so we can use this to locate the byte where we should cut the prefix (to byte 4160) and suffix (from byte 4417 (4160+2*128+1)).
 
 ```console
 $ head -c 4160 a.out > prefix
-$ tail -c +4289 a.out > suffix
+$ tail -c +4417 a.out > suffix
 ```
 
 Now we have a prefix and a suffix. In between those we need to store two 128-byte arrays. In the good program those should equal, and in the bad program those should differ. However, the MD5 needs to be the same.
