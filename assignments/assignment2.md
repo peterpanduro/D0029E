@@ -1,0 +1,37 @@
+# Home Assignment 2
+
+- Privilege separation
+  - Divide application into different pieces.
+    - Make sure every piece only have necessary privileges.
+    - Every layer. App, DB, etc.
+  - Could be performed in many different ways.
+    - Virtual Machines.
+      - Kind of sandbox
+      - Large memory overhead
+      - Difficult to share between instances.
+    - Unix.
+      - Managed identifiers
+      - Permission bits (Read, Write, Execute)
+        - Owner
+        - Group
+        - Other
+      - Superuser (root) with uid=0
+        - Can do anything
+        - Sets up permissions during user login
+      - setuid binaries
+        - su/sudo
+        - temporary switches the uid of the process to owner of the binary, i.e. root (uid=0).
+    - Browsers, like Chrome
+  - Capabilities
+    - Confused deputy
+      - A compiler, for instance, have privileges the user don't.
+      - Ambient authority
+        - Some hidden authority (kernel for example) decides what is allowed
+    - Unforgeable
+      - Lookup tables in privileged space
+        - Application can't send manipulated file descriptors
+        - Only valid file descriptors accessible/existing
+    - Sandboxing
+      - Protect global namespaces
+        - File system
+        - Networking
