@@ -215,4 +215,29 @@ Once any byte in a 16-byte block is changed, the upcoming blocks are scrambled a
 
 ### Task 6.3:
 
-?
+We know the actual value of C1 is "Yes" or "No". So we start assuming the affirmative option.
+
+```console
+$ echo Yes > P2.txt
+$ hexdump -p P2.txt
+00000000  59 65 73 0a                                       |Yes.|
+00000004
+```
+The message needs to be padded with a hex editor or similar.
+
+```console
+$ hexdump -C P2 
+00000000  59 65 73 0d 0d 0d 0d 0d  0d 0d 0d 0d 0d 0d 0d 0d  |Yes.............|
+00000010
+```
+
+We then XOR the hex value with both the last known IV and the next to be used. In this case, an online editor was used and a file was created containing the result. After that the file is sent to Bob to do the actually encryption and we can see the resulting C2 is the same as the unknown C1.
+
+```console
+$ echo -n "5965730d0d0d0d0d0d0d0d0d0d0d0d0c" | xxd -r -p > P2-xor
+$ openssl enc -aes-128-cbc -e -in P2-xor -out C2 -K 00112233445566778899aabbccddeeff -iv 31323334353637383930313233343537 -nopad
+hexdump -C C2 
+00000000  be f6 55 65 57 2c ce e2  a9 f9 55 31 54 ed 94 98  |..UeW,....U1T...|
+00000010
+```
+
